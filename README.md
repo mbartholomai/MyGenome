@@ -6,6 +6,7 @@ The F1 and R1 sequence datasets were analyzed using FASTQC:
 ```bash
 ssh -Y mdba238@mdba238.cs.uky.edu
 cd MyGenome
+export _JAVA_OPTIONS='-Dsun.java2d.xrender=false'
 fastqc &
 ```
 Load F1 and R1 datasets into GUI interface. 

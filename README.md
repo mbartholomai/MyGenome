@@ -23,6 +23,5 @@ java -jar...
 ## 3. Count the number of forward reads remaining
 ```bash
 grep -c @A00261 forward_paired.fastq 
-awk 'NR%4==2 {total += length($0)} END {print total}' forward_paired.fastq 
-awk 'NR%4==2 {total += length($0)} END {print total}' reverse_paired.fastq
+cat forward_paired.fastq reverse_paired.fastq | awk 'NR%4==2 {total += length($0)} END {print total}'
 ```

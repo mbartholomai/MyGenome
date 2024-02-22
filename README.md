@@ -18,7 +18,7 @@ Reverse Paired:
 
 ## 2. Ran trimmomatic
 ```bash
-java -jar...
+java -jar ~/sequences/trimmomatic-0.38.jar PE -threads 16 -phred33 -trimlog input_forward.fq input_reverse.fq forward_paired.fastq forward_unpaired.fastq reverse_paired.fastq reverse_unpaired.fastq ILLUMINACLIP:adaptors.fasta:2:30:10 SLIDINGWINDOW:20:20 MINLEN:100
 ```
 
 ## 3. Count the number of forward reads remaining

@@ -30,3 +30,13 @@ ILLUMINACLIP:adaptors.fasta:2:30:10 SLIDINGWINDOW:20:20 MINLEN:100
 grep -c @A00261 forward_paired.fastq 
 cat forward_paired.fastq reverse_paired.fastq | awk 'NR%4==2 {total += length($0)} END {print total}'
 ```
+
+## 4. Velvet optimizer
+```bash
+sbatch velvetoptimiser_noclean.sh UFVPY113 61 131 10
+```
+Then, I found that the hash size was 110 so I ran:
+```bash
+sbatch velvetoptimiser_noclean.sh UFVPY113 91 111 2
+```
+

@@ -75,4 +75,36 @@ blastn -query B71v2sh_masked.fasta -subject UFVPY113_final.fasta -evalue 1e-50 -
 sbatch CallVariants.sh UFVPY113_BLASTS
 ```
 
+## 12. Gene Prediction Using SNAP
+### Convert the MAKER annotations to ZFF for SNAP:
+```bash
+maker2zff B71Ref2.gff3
+
+```
+### Extract the genome regions containing unique genes:
+```bash
+fathom genome.ann genome.dna -categorize 1000
+```
+### Extract the genome, transcript, and protein sequences from these genes:
+```bash
+fathom uni.ann uni.dna -export 1000 -plus
+```
+### Format using forge:
+```bash
+forge export.ann export.dna
+```
+### Condense files
+```bash
+hmm-assembler.pl Moryzae . > Moryzae.hmm
+```
+### Run SNAP
+```bash
+snap-hmm Moryzae.hmm UFVPY113.fasta UFVPY113-snap.zff
+fathom MyGenome-snap.zff UFVPY113.fasta -gene-stats
+snap-hmm Moryzae.hmm UFVPY113.fasta -gff > UFVPY113-snap.gff2
+```
+## 13. Gene Prediction Using Augustus
+```bash
+augustus --species=magnaporthe_grisea --gff3=on --singlestrand=true --progress=true ../snap/UFVPY113.fasta > UFVPY113-augustus.gff3
+```
 

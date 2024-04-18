@@ -99,16 +99,18 @@ hmm-assembler.pl Moryzae . > Moryzae.hmm
 ```
 ### Run SNAP
 ```bash
-snap-hmm Moryzae.hmm UFVPY113.fasta UFVPY113-snap.zff
-fathom MyGenome-snap.zff UFVPY113.fasta -gene-stats
-snap-hmm Moryzae.hmm UFVPY113.fasta -gff > UFVPY113-snap.gff2
+snap-hmm Moryzae.hmm UFVPY113_final.fasta UFVPY113-snap.zff
+fathom MyGenome-snap.zff UFVPY113_final.fasta -gene-stats
+snap-hmm Moryzae.hmm UFVPY113_final.fasta -gff > UFVPY113-snap.gff2
 ```
 ## 13. Gene Prediction Using Augustus
 ```bash
-augustus --species=magnaporthe_grisea --gff3=on --singlestrand=true --progress=true ../snap/UFVPY113.fasta > UFVPY113-augustus.gff3
+augustus --species=magnaporthe_grisea --gff3=on --singlestrand=true --progress=true ../snap/UFVPY113_final.fasta > UFVPY113-augustus.gff3
 ```
 ## 14. Gene Prediction Using MAKER
 ```bash
 maker 2>&1 | tee maker.log
+gff3_merge -d UFVPY113.maker.output/UFVPY113_master_datastore_index.log \
+-o UFVPY113-annotations.gff
 ```
 

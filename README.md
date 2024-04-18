@@ -107,4 +107,8 @@ snap-hmm Moryzae.hmm UFVPY113.fasta -gff > UFVPY113-snap.gff2
 ```bash
 augustus --species=magnaporthe_grisea --gff3=on --singlestrand=true --progress=true ../snap/UFVPY113.fasta > UFVPY113-augustus.gff3
 ```
+## 14. Gene Prediction Using MAKER
+```bash
+maker 2>&1 | tee maker.log
+```
 

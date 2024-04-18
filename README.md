@@ -110,7 +110,6 @@ augustus --species=magnaporthe_grisea --gff3=on --singlestrand=true --progress=t
 ## 14. Gene Prediction Using MAKER
 ```bash
 maker 2>&1 | tee maker.log
-gff3_merge -d UFVPY113.maker.output/UFVPY113_master_datastore_index.log \
--o UFVPY113-annotations.gff
+gff3_merge -d UFVPY113.maker.output/UFVPY113_master_datastore_index.log -o UFVPY113-annotations.gff
 ```
 

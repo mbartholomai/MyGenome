@@ -53,7 +53,7 @@ perl /project/farman_s24cs485g/SCRIPTs/SimpleFastaHeaders.pl UFVPY113.fasta
 ```bash
 sbatch BuscoSingularity.sh UFVPY113/velvet_UFVPY113_91_111_2_noclean/UFVPY113_nh.fasta
 ```
-![data/short_summary.specific.ascomycota_odb10.UFVPY113_nh_busco.txt](/data/short_summary.specific.ascomycota_odb10.UFVPY113_nh_busco.txt)
+![short_summary.specific.ascomycota_odb10.UFVPY113_nh_busco.txt](/data/short_summary.specific.ascomycota_odb10.UFVPY113_nh_busco.txt)
 
 ## 7. Remove contigs less than 200 base pairs long
 ```bash

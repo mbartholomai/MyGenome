@@ -30,30 +30,36 @@ ILLUMINACLIP:adaptors.fasta:2:30:10 SLIDINGWINDOW:20:20 MINLEN:100
 grep -c @A00261 forward_paired.fastq 
 cat forward_paired.fastq reverse_paired.fastq | awk 'NR%4==2 {total += length($0)} END {print total}'
 ```
+Result: 8351282
 
 ## 4. Velvet optimizer
 ```bash
 sbatch velvetoptimiser_noclean.sh UFVPY113 61 131 10
 ```
+![19-03-2024-14-58-25_Logfile.txt](/data/19-03-2024-14-58-25_Logfile.txt)
 Then, I found that the hash size was 110 so I ran:
 ```bash
 sbatch velvetoptimiser_noclean.sh UFVPY113 91 111 2
 ```
+![21-03-2024-14-14-03_Logfile.txt](/data/21-03-2024-14-14-03_Logfile.txt)
 
 ## 5. Rename sequence headers to a standard format
 ```bash
 perl /project/farman_s24cs485g/SCRIPTs/SimpleFastaHeaders.pl UFVPY113.fasta
 ```
+![UFVPY113.fasta.zip](/data/UFVPY113.fasta.zip)
 
 ## 6. Check Genome completeness using BUSCO
 ```bash
 sbatch BuscoSingularity.sh UFVPY113/velvet_UFVPY113_91_111_2_noclean/UFVPY113_nh.fasta
 ```
+![UFVPY113_nh.fasta.zip](/data/UFVPY113_nh.fasta.zip)
 
 ## 7. Remove contigs less than 200 base pairs long
 ```bash
 perl CullShortContigs.pl UFVPY113_nh.fasta
 ```
+![UFVPY113_nh.fasta.zip](/data/UFVPY113_nh.fasta.zip)
 
 ## 8. BLAST the MoMitochondrion.fasta sequence against the final genome assembly
 ```bash
@@ -117,6 +123,7 @@ augustus --species=magnaporthe_grisea --gff3=on --singlestrand=true --progress=t
 maker 2>&1 | tee maker.log
 gff3_merge -d UFVPY113.maker.output/UFVPY113_master_datastore_index.log -o UFVPY113-annotations.gff
 ```
+![UFVPY113-annotations.gff.zip](/data/UFVPY113-annotations.gff.zip)
 ## 15. Extract Gene Sequences for downstream analysis
 ```bash
 fasta_merge -d UFVPY113_final.maker.output/UFVPY113_final_master_datastore_index.log -o UFVPY113-genes.fasta
@@ -127,4 +134,5 @@ fasta_merge -d UFVPY113_final.maker.output/UFVPY113_final_master_datastore_index
 ```bash
 grep 'UFVPY113_contig' UFVPY113-annotations.gff | awk '{print $3}' | grep 'gene' | wc -l
 ```
+Result: 13,243
 

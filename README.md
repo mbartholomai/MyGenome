@@ -59,16 +59,19 @@ perl CullShortContigs.pl UFVPY113_nh.fasta
 ```bash
 blastn -query MoMitochondrion.fasta -subject UFVPY113_nh.fasta -evalue 1e-50 -max_target_seqs 20000 -outfmt '6 qseqid sseqid slen length qstart qend sstart send btop' -out MoMitochondrion.UFVPY113.BLAST
 ```
+![MoMitochondrion.UFVPY113.BLAST](/data/MoMitochondrion.UFVPY113.BLAST)
 
 ## 9. Export a list of contigs that mostly comprise mitochondrial sequences
 ```bash
 awk '$4/$3 > 0.9 {print $2 ",mitochondrion"}' MoMitochondrion.UFVPY113.BLAST > UFVPY113_mitochondrion.csv
 ```
+![UFVPY113_mitochondrion.csv](/data/UFVPY113_mitochondrion.csv)
 
 ## 10. BLAST the genome assembly against a repeat-masked version of the B71 reference genome
 ```bash
 blastn -query B71v2sh_masked.fasta -subject UFVPY113_final.fasta -evalue 1e-50 -max_target_seqs 20000 -outfmt '6 qseqid sseqid qstart qend sstart send btop' -out B71v2sh.UFVPY113.BLAST
 ```
+![B71v2sh.UFVPY113.BLAST](/data/B71v2sh.UFVPY113.BLAST)
 
 ## 11. Identify genetic variants between the B71v2sh genome and the genome assembly
 ```bash
@@ -103,6 +106,8 @@ snap-hmm Moryzae.hmm UFVPY113_final.fasta UFVPY113-snap.zff
 fathom UFVPY113-snap.zff UFVPY113_final.fasta -gene-stats
 snap-hmm Moryzae.hmm UFVPY113_final.fasta -gff > UFVPY113-snap.gff2
 ```
+![B71v2sh_v_UFVPY113_out](/data/B71v2sh_v_UFVPY113_out)
+
 ## 13. Gene Prediction Using Augustus
 ```bash
 augustus --species=magnaporthe_grisea --gff3=on --singlestrand=true --progress=true ../snap/UFVPY113_final.fasta > UFVPY113-augustus.gff3
@@ -116,6 +121,8 @@ gff3_merge -d UFVPY113.maker.output/UFVPY113_master_datastore_index.log -o UFVPY
 ```bash
 fasta_merge -d UFVPY113_final.maker.output/UFVPY113_final_master_datastore_index.log -o UFVPY113-genes.fasta
 ```
+![UFVPY113-genes.fasta.all.maker.proteins.fasta](/data/UFVPY113-genes.fasta.all.maker.proteins.fasta)
+
 ### Count genes
 ```bash
 grep 'UFVPY113_contig' UFVPY113-annotations.gff | awk '{print $3}' | grep 'gene' | wc -l
